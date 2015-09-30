@@ -124,6 +124,7 @@ namespace entities
         }
     }
 
+    VARP(simpleitems, 0, 0, 1);
     void renderentities()
     {
         loopv(ents)
@@ -141,6 +142,12 @@ namespace entities
                     break;
                 default:
                     if(!e.spawned() || e.type < I_SHELLS || e.type > I_QUAD) continue;
+            }
+            if (e.type >= I_SHELLS && e.type <= I_QUAD && simpleitems) {
+
+                int icon = entities::itemicon(i);
+                particle_icon(vec(0.0f, 0.0f, 2.0f).add(e.o), icon%4, icon/4, PART_HUD_ICON, 0, 0xFFFFFF, 4.0f, 0);
+                continue;
             }
             const char *mdlname = entmodel(e);
             if(mdlname)
